@@ -54,10 +54,10 @@ Bing의 Copilot 기능은 사용자가 검색어를 입력하면 해당 검색�
 깃허브 코파일럿을 활용해서 위와 같은 문서를 '탭(Tab)'과 '엔터(Enter)' 키만 눌러가며 작성해 봤습니다.
 
 ## 진행과정 캡처화면은 아래 이미지와 같습니다.
-![캡처화면 01](https://github.com/durume/Citizen-Developer-Study/assets/83335854/7c8ee044-6649-4af7-8fe4-906aa954435d)
+![캡처화면 01](https://github.com/durume/Citizen-Developer-Study/assets/83335854/7c8ee044-6649-4af7-8fe4-906aa954435d)  
 최초 "챗지피티를 통해 프롬프트 엔지니어링을 하는 방법"이라는 제목을 스스로 생성하고, 이에 만족하면 '탭'과 '엔터'만으로 문서를 작성합니다.  
 
-![캡처화면 02](https://github.com/durume/Citizen-Developer-Study/assets/83335854/9cd2393f-1766-47ce-8a7c-df595e0426bb)
+![캡처화면 02](https://github.com/durume/Citizen-Developer-Study/assets/83335854/9cd2393f-1766-47ce-8a7c-df595e0426bb)  
 이어서 쭉 '탭'과 '엔터'를 통해 따라가면 마지막에는 비슷한 내용만 나오는데, 해당 내용은 챗지피티와 달리 '탭'과 '엔터'만으로 작성한 것이어서 프롬프트를 통해 생성하는 것과 달라서 차이가 있습니다.
 
 # 챗지피티에서 프롬프트 엔지니어링 해보기 실습
