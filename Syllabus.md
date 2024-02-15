@@ -10,4 +10,4 @@
 
 디지털기술의 급속한 발달은 **개인의 역량을 증강(augmentation)**시키는 방향으로 발달하고 있습니다. 이런 기하급수적인 디지털기술의 발전은 많은 것을 통합하고 협업할 수 있게 하지만, 때론 시간이 부족해서 때론 통찰을 얻을 기회가 없어 혜택을 누리지 못하기도 합니다.  
 
-![Round Wheel Introduction](Citizen-Developer-Study/Round Wheel Introduction.jpg)
+![Round Wheel Introduction](Round Wheel Introduction.jpg)
