@@ -63,7 +63,7 @@ Bing의 Copilot 기능은 사용자가 검색어를 입력하면 해당 검색�
 # 챗지피티에서 프롬프트 엔지니어링 해보기 실습
 [![챗지피티 이미지](https://github.com/durume/Citizen-Developer-Study/assets/83335854/20e4a128-f10c-4f54-984f-e75bf35cc0b4)](chat.openai.com)
 
-[챗지피티로 이동](chat.openai.com)
+[챗지피티로 이동](https://chat.openai.com)
 
 # '빙(Bing)' 코파일럿에서 프롬프트 엔지니어링 해보기 실습
 > 주의: '빙(Bing)'의 코파일럿은 Edge 브라우저에서 최적화 되어 있습니다.
