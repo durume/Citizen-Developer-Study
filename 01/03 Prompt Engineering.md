@@ -61,7 +61,7 @@ Bing의 Copilot 기능은 사용자가 검색어를 입력하면 해당 검색�
 이어서 쭉 '탭'과 '엔터'를 통해 따라가면 마지막에는 비슷한 내용만 나오는데, 해당 내용은 챗지피티와 달리 '탭'과 '엔터'만으로 작성한 것이어서 프롬프트를 통해 생성하는 것과 달라서 차이가 있습니다.
 
 # 챗지피티에서 프롬프트 엔지니어링 해보기 실습
-[![챗지피티 이미지](https://github.com/durume/Citizen-Developer-Study/assets/83335854/20e4a128-f10c-4f54-984f-e75bf35cc0b4)](chat.openai.com)
+[![챗지피티 이미지](https://github.com/durume/Citizen-Developer-Study/assets/83335854/20e4a128-f10c-4f54-984f-e75bf35cc0b4)](https://chat.openai.com)
 
 [챗지피티로 이동](https://chat.openai.com)
 
