@@ -28,8 +28,3 @@
 - [Unilever 사례 자세히 보기](https://blogs.microsoft.com/blog/2019/07/11/now-its-personal-unilevers-digital-journey-leads-to-real-results-for-consumers-and-employees/)
 
 
-## 결론
-- 디지털 전환은 기업이 경쟁력을 유지하고 성장하기 위해 필수적인 과정입니다.
-- 시민 개발자는 Power Platform과 같은 도구를 통해 혁신을 주도하며, 기업의 디지털 전환을 가속화하는 중요한 역할을 합니다.
-
-
