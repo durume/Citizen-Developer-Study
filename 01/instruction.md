@@ -18,7 +18,7 @@
 
 ## Power Platform 활용 사례
 
-- [Bell Food Group: Proving the benefits of digitalization through a Power Platform solution]([https://blogs.microsoft.com/blog/2023/07/17/embracing-ai-transformation-how-customers-and-partners-are-driving-pragmatic-innovation-to-achieve-business-outcomes-with-the-microsoft-cloud/](https://pulse.microsoft.com/en/transform-en/retail-en/fa2-bell-food-group-proving-the-benefits-of-digitalization-through-a-power-platform-solution/))
-- [Unilever 사례 자세히 보기]([https://blogs.microsoft.com/blog/2019/07/11/now-its-personal-unilevers-digital-journey-leads-to-real-results-for-consumers-and-employees/](https://news.microsoft.com/source/features/digital-transformation/now-its-personal-unilevers-digital-journey-leads-to-real-results-for-consumers-and-employees/)https://news.microsoft.com/source/features/digital-transformation/now-its-personal-unilevers-digital-journey-leads-to-real-results-for-consumers-and-employees/)
+- [Bell Food Group: Proving the benefits of digitalization through a Power Platform solution](https://pulse.microsoft.com/en/transform-en/retail-en/fa2-bell-food-group-proving-the-benefits-of-digitalization-through-a-power-platform-solution/)
+- [Unilever 사례 자세히 보기](https://news.microsoft.com/source/features/digital-transformation/now-its-personal-unilevers-digital-journey-leads-to-real-results-for-consumers-and-employees/)
 
 
