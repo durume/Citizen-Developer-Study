@@ -8,6 +8,10 @@
 
 # 6 Ds
 
+![6Ds Image](https://github.com/durume/Citizen-Developer-Study/assets/83335854/e7b9750e-1bd6-4a0e-a071-a84e5eb8f960)
+[이미지 출처: Peter Diamandis의 블로그](https://www.diamandis.com/blog/the-6ds)
+
+
 6Ds란 **지수적 기술**의 성장 주기를 설명하는 여섯 가지 단계로, 다음과 같습니다.
 
 - **디지털화(Digitization)**: 기술이 디지털 형태로 표현되면, 정보가 복제되고 공유되기 쉬워지고, 성장 속도가 급격히 증가합니다.
