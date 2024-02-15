@@ -18,13 +18,7 @@
 
 ## Power Platform 활용 사례
 
-- **Epiq**: Power Platform을 포함한 AI 및 Copilot 기능을 활용하여 직원 프로세스를 자동화함으로써 연간 50만 달러 이상의 비용과 매달 2,000시간의 작업 시간을 절약했습니다.  
-- **PG&E**: 도움말 데스크 수요의 최대 40%를 해결하여 연간 100만 달러 이상을 절약했습니다.  
-- **Nsure**: 수동 처리 시간을 60% 이상 줄이고 비용을 50% 절감하는 자동화를 구축했습니다.  
-- **Unilever**: Power Platform을 활용하여 공급망을 디지털 방식으로 재구성하고, IoT 및 Azure IoT 플랫폼의 지능형 엣지 서비스를 사용하여 디지털 트윈을 활성화했습니다.  
-
-자세한 사례 연구는 Microsoft 공식 블로그에서 확인하실 수 있습니다:
-- [Epiq, PG&E, Nsure 사례 자세히 보기](https://blogs.microsoft.com/blog/2023/07/17/embracing-ai-transformation-how-customers-and-partners-are-driving-pragmatic-innovation-to-achieve-business-outcomes-with-the-microsoft-cloud/)
-- [Unilever 사례 자세히 보기](https://blogs.microsoft.com/blog/2019/07/11/now-its-personal-unilevers-digital-journey-leads-to-real-results-for-consumers-and-employees/)
+- [Bell Food Group: Proving the benefits of digitalization through a Power Platform solution]([https://blogs.microsoft.com/blog/2023/07/17/embracing-ai-transformation-how-customers-and-partners-are-driving-pragmatic-innovation-to-achieve-business-outcomes-with-the-microsoft-cloud/](https://pulse.microsoft.com/en/transform-en/retail-en/fa2-bell-food-group-proving-the-benefits-of-digitalization-through-a-power-platform-solution/))
+- [Unilever 사례 자세히 보기]([https://blogs.microsoft.com/blog/2019/07/11/now-its-personal-unilevers-digital-journey-leads-to-real-results-for-consumers-and-employees/](https://news.microsoft.com/source/features/digital-transformation/now-its-personal-unilevers-digital-journey-leads-to-real-results-for-consumers-and-employees/)https://news.microsoft.com/source/features/digital-transformation/now-its-personal-unilevers-digital-journey-leads-to-real-results-for-consumers-and-employees/)
 
 
