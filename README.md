@@ -27,3 +27,7 @@
 - [The 6 D's](https://www.diamandis.com/blog/the-6ds)
 - [The Six Ds of Exponentials - Peter Diamandis](https://www.diamandis.com/blog/6-ds-exponentials)
 - [The 6 Ds of Tech Disruption: A Guide to the Digital Economy - Singularity Hub](https://singularityhub.com/2016/11/22/the-6-ds-of-tech-disruption-a-guide-to-the-digital-economy/)
+
+# 인공지능 시대 우리의 자세
+[![이어령 그랜드 마스터](https://github.com/durume/Citizen-Developer-Study/assets/83335854/c1145ce5-de61-45e8-9fd1-4c58fc9be50c)](https://youtu.be/ENmbyyx2i6k?si=PQv7KfcGMmfd6hiQ)
+출어: [유투브 빅퀘스천 - 이어령](https://youtu.be/ENmbyyx2i6k?si=PQv7KfcGMmfd6hiQ)
