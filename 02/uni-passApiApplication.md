@@ -11,13 +11,13 @@
 
 ### 2.2. API 사용신청 및 키 발급
 무사히(?) 회원가입을 마치면 아래 이미지와 같이 오른쪽 위에 위치한 'My메뉴'에서 API를 사용신청합니다.  
-![UNI-PASS OpenAPI 신청을 위해 회원가입 후 마이페이지로 이동](images/unipass-OpenAPI-01.png)
+![UNI-PASS OpenAPI 신청을 위해 회원가입 후 마이페이지로 이동](Images/unipass-OpenAPI-01.png)
 
 다음으로 'My메뉴'에서 왼쪽 메뉴 가운데 '서비스관리'의 오른쪽에 있는 확장표시를 눌러 'OpenAPI 사용관리'를 선택합니다.  
-![UNI-PASS My메뉴에서 OpenAPI 사용관리 선택하기](images/unipass-OpenAPI-02.png)
+![UNI-PASS My메뉴에서 OpenAPI 사용관리 선택하기](Images/unipass-OpenAPI-02.png)
 
 'OpenAPI 사용관리'로 이동해서 필요한 내용들을 선택한 후에 오른쪽 아래에 있는 'OPEN API 신청'을 눌러서 신청을 마무리 하면 됩니다.  
-![UNI-PASS OpenAPI 사용관리에서 OPEN API 신청하기](images/unipass-OpenAPI-03.png)
+![UNI-PASS OpenAPI 사용관리에서 OPEN API 신청하기](Images/unipass-OpenAPI-03.png)
 
 승인된 OpenAPI를 사용하려면 해당 API를 눌러서 아래의 상세내역에서 API 인증키를 확인할 수 있습니다.  
-![UNI-PASS OpenAPI 사용관리에서 API 키 확인하기](images/unipass-OpenAPI-04.png)
+![UNI-PASS OpenAPI 사용관리에서 API 키 확인하기](Images/unipass-OpenAPI-04.png)
