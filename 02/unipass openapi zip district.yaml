@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: UNI-PASS PostNoPrCstmsSgnQry API
+  version: 1.0.0
+servers:
+  - url: https://unipass.customs.go.kr:38010/ext/rest/postNoPrCstmsSgnQry
+paths:
+  /retrievePostNoPrCstmsSgnQry:
+    get:
+      summary: Retrieve Post No Processing Customs Sign Query
+      operationId: retrievePostNoPrCstmsSgnQry
+      parameters:
+        - name: jrsdPsnNo
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with the customs sign information
+          content:
+            application/xml:
+              schema:
+                type: string # This should be replaced with the actual XML schema definition
+security:
+  - ApiKeyAuth: []
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: 'crkyCn' # Replace with the actual header name used for the API key

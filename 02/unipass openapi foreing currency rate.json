@@ -1,0 +1,73 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "UNI-PASS TriFfxtrInfo API",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://unipass.customs.go.kr:38010/ext/rest/triFfxtrInfoQry"
+      }
+    ],
+    "paths": {
+      "/retrieveTriFfxtrInfo": {
+        "get": {
+          "summary": "Retrieve TriFfxtr Information",
+          "operationId": "retrieveTriFfxtrInfo",
+          "parameters": [
+            {
+              "name": "qryYrMmDd",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "imexTp",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "cntySgn",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response with TriFfxtr information",
+              "content": {
+                "application/xml": {
+                  "schema": {
+                    "type": "string" 
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "ApiKeyAuth": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "crkyCn"
+        }
+      }
+    },
+    "security": [
+      {
+        "ApiKeyAuth": []
+      }
+    ]
+  }
+  
