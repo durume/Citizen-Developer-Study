@@ -192,8 +192,10 @@
 
 ### 1. Ngrok 가입 및 인증 토큰 받기
 
-1. [Ngrok 웹사이트](https://ngrok.com/)로 이동하여 무료 계정을 만듭니다.
-2. 계정에 로그인하여 대시보드로 이동합니다.
+1. [Ngrok 웹사이트](https://dashboard.ngrok.com/signup)로 이동하여 무료 계정을 만듭니다.  
+가급적 '구글계정'을 활용해 회원가입을 합니다.  
+![Ngrok Sign Up](images/ngrok_signup.png)
+2. 회원가입 후 계정에 로그인하여 대시보드로 이동합니다.
 3. 대시보드에서 "Your Authtoken" 섹션을 찾습니다.
 4. 표시된 인증 토큰을 복사합니다.
 
@@ -201,26 +203,32 @@
 
 - Ngrok을 공식 웹사이트에서 다운로드합니다:
     ```bash
-    wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
-    unzip ngrok-stable-linux-arm.zip
+  curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc \
+	| sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null \
+	&& echo "deb https://ngrok-agent.s3.amazonaws.com buster main" \
+	| sudo tee /etc/apt/sources.list.d/ngrok.list \
+	&& sudo apt update \
+	&& sudo apt install ngrok
     ```
 
 ### 3. Ngrok 설정
 
 - Ngrok을 인증 토큰으로 인증합니다:
     ```bash
-    ./ngrok authtoken YOUR_AUTH_TOKEN
+    ngrok config add-authtoken YOUR_AUTH_TOKEN
     ```
 
 - Flask 애플리케이션을 전달하기 위해 Ngrok을 실행합니다:
     ```bash
-    ./ngrok http 5000
+    ngrok http http://localhost:5000
     ```
 
-- 생성된 공개 URL을 기록합니다 (예: `http://abcd1234.ngrok.io`).
+- 생성된 공개 URL을 기록합니다 (예: `http://abcd1234.ngrok.app`).
 
 ### 4. 원격으로 웹 서버에 접근
 
 - 생성된 Ngrok URL을 브라우저에 입력하여 원격으로 Flask 웹 서버에 접속하고 센서 데이터를 확인합니다.
+- 해당 페이지에서 '마우스 오른쪽'을 눌러 '이 페이지의 QR코드 생성'을 선택하여 QR코드를 생성한 다음 모바일 기기를 통해 해당 페이지에 접속합니다.    
+  ![alt text](images/QRcode_generation.png)
 
 이 단계들을 따르면 Flask를 사용하여 라즈베리 파이에서 웹 서버를 설정하고, Ngrok을 통해 원격에서 접속할 수 있게 됩니다. 이 커리큘럼은 초보자를 위한 IoT 기반 스마트 농장 모니터링 시스템을 구축하는 과정을 안내합니다.
