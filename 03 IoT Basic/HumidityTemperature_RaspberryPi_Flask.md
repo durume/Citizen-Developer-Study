@@ -19,9 +19,10 @@
 - **필요한 재료**: DHT11 센서, 점퍼 와이어, 브레드보드.
 - **배선**:
     - DHT11의 VCC 핀을 라즈베리 파이의 3.3V에 연결합니다.
-    - DHT11의 GND 핀을 라즈베리 파이의 GND에 연결합니다.
+    - DHT11의 GND 핀을 라즈베리 파이의 Ground에 연결합니다.
     - DHT11의 데이터 핀을 라즈베리 파이의 GPIO4에 연결합니다.
-![Raspberry Pi GPIO 설명 이미지](/images/gpio_image.png)
+![Raspberry Pi GPIO 설명 이미지](images/gpio_image.png)  
+[이미지출처: 라즈베리 파이 공식 웹페이지 - GPIO pin 설명](https://raspberrytips.com/glossary/gpio/)
 
 - **Python 스크립트**:
     ```python
