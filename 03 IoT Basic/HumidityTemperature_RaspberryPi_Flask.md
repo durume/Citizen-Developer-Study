@@ -9,10 +9,15 @@
 
 - **필요한 재료**: 라즈베리 파이, microSD 카드 (32GB 권장), 전원 공급 장치, HDMI 케이블, 키보드, 마우스, 모니터.
 - **단계**:
-    1. 라즈베리 파이 공식 웹사이트에서 최신 Raspbian OS를 다운로드하고 설치합니다.
-    2. Raspberry Pi Imager 도구를 사용하여 Raspbian OS를 microSD 카드에 작성합니다.
-    3. microSD 카드를 라즈베리 파이에 삽입하고 모니터, 키보드 및 마우스를 연결합니다.
-    4. 라즈베리 파이를 켜고 초기 설정을 완료합니다.
+    1. [라즈베리 파이 공식 다운로드 페이지](https://www.raspberrypi.org/software/)로 이동합니다.
+    2. "Raspberry Pi Imager"를 다운로드하여 설치합니다. Windows용 설치 파일을 선택하십시오.
+    3. Raspberry Pi Imager를 실행합니다.
+    4. "Choose OS" 버튼을 클릭하고 "Raspberry Pi OS (32-bit)"를 선택합니다.
+    5. "Choose SD Card" 버튼을 클릭하고 microSD 카드를 선택합니다.
+    6. "Write" 버튼을 클릭하여 Raspbian OS를 microSD 카드에 설치합니다.
+    7. 완료되면 microSD 카드를 라즈베리 파이에 삽입합니다.
+    8. 라즈베리 파이를 모니터, 키보드 및 마우스에 연결하고 전원을 켭니다.
+    9. 초기 설정을 완료합니다.
 
 ### 2. DHT11 센서 연결 및 구성
 
