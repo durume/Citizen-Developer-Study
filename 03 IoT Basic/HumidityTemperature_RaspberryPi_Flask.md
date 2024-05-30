@@ -9,7 +9,7 @@
 
 - **필요한 재료**: 라즈베리 파이, microSD 카드 (32GB 권장), 전원 공급 장치, HDMI 케이블, 키보드, 마우스, 모니터.
 - **단계**:
-    1. <a href="https://www.raspberrypi.org/software/" target="_blank">라즈베리 파이 공식 다운로드 페이지</a>로 이동합니다.
+    1. <a href="https://www.raspberrypi.org/software/" target="_new">라즈베리 파이 공식 다운로드 페이지</a>로 이동합니다.
     2. "Raspberry Pi Imager"를 다운로드하여 설치합니다. Windows용 설치 파일을 선택하십시오.
     3. Raspberry Pi Imager를 실행합니다.
     4. "Choose OS" 버튼을 클릭하고 "Raspberry Pi OS (32-bit)"를 선택합니다.
