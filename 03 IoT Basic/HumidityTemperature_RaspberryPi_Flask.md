@@ -130,40 +130,45 @@
 
 - `flask_app.py` 파일에 다음 코드를 작성합니다:
     ```python
-    from flask import Flask, render_template, redirect, url_for, send_from_directory
-    import Adafruit_DHT
-    import os
+from flask import Flask, render_template, redirect, url_for, send_from_directory
+import Adafruit_DHT
+import os
+import logging
 
-    app = Flask(__name__)
+app = Flask(__name__)
 
-    # 센서 유형 및 GPIO 핀 설정
-    sensor = Adafruit_DHT.DHT11
-    pin = 4
+logging.basicConfig(level=logging.DEBUG)
 
-    # DHT11 센서에서 데이터를 읽는 함수
-    def get_sensor_data():
-        humidity, temperature = Adafruit_DHT.read(sensor, pin)
-        if humidity is not None and temperature is not None:
-            return {'temperature': temperature, 'humidity': humidity}
-        else:
-            return {'temperature': 'N/A', 'humidity': 'N/A'}
+# Set sensor type and GPIO pin
+sensor = Adafruit_DHT.DHT11
+pin = 4
 
-    @app.route('/')
-    def index():
-        data = get_sensor_data()
-        return render_template('index.html', data=data)
+# Function to read data from DHT11 sensor
+def get_sensor_data():
+    humidity, temperature = Adafruit_DHT.read(sensor, pin)
+    if humidity is not None and temperature is not None:
+        logging.debug(f'Temperature: {temperature} C, Humidity: {humidity} %')
+        return {'temperature': temperature, 'humidity': humidity}
+    else:
+        logging.error('Failed to get reading from the sensor.')
+        return {'temperature': 'N/A', 'humidity': 'N/A'}
 
-    @app.route('/favicon.ico')
-    def favicon():
-        return send_from_directory(os.path.join(app.root_path, 'static'),
-                                   'favicon.png', mimetype='image/png')
+@app.route('/')
+def index():
+    data = get_sensor_data()
+    return render_template('index.html', data=data)
 
-    @app.route('/refresh')
-    def refresh():
-        return redirect(url_for('index'))
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.png', mimetype='image/png')
 
-    if __name__ == '__main__':
-        app.run(host='0.0.0.0', port=5000)
+@app.route('/refresh')
+def refresh():
+    return redirect(url_for('index'))
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
     ```
 
 - 파일을 저장하고 나옵니다: `Esc`, `:wq`, `Enter`.
