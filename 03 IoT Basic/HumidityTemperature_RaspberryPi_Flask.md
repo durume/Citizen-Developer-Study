@@ -103,14 +103,13 @@
     ```bash
     mkdir flask_app
     cd flask_app
-    python3 -m venv venv
-    source venv/bin/activate
+    python3 -m venv flask
+    source flask/bin/activate
     ```
 
 - 가상 환경에 Flask 및 Adafruit_DHT를 설치합니다:
     ```bash
-    pip install Flask
-    pip install Adafruit_DHT
+    pip install adafruit-circuitpython-dht Flask
     ```
 
 ### 2. Flask 애플리케이션 생성
@@ -130,89 +129,83 @@
 
 - `flask_app.py` 파일에 다음 코드를 작성합니다:
     ```python
-from flask import Flask, render_template, redirect, url_for, send_from_directory
-import Adafruit_DHT
-import os
-import logging
+    # flask_app.py
+    from flask import Flask, jsonify, send_from_directory
+    import time
+    import board
+    import adafruit_dht
 
-app = Flask(__name__)
+    app = Flask(__name__)
 
-logging.basicConfig(level=logging.DEBUG)
+    # Initialize the DHT device, with data pin connected to:
+    dhtDevice = adafruit_dht.DHT11(board.D4)
 
-# Set sensor type and GPIO pin
-sensor = Adafruit_DHT.DHT11
-pin = 4
+    def read_dht11():
+        try:
+            temperature_c = dhtDevice.temperature
+            humidity = dhtDevice.humidity
+            return temperature_c, humidity
+        except RuntimeError as error:
+            print(error.args[0])
+            return None, None
 
-# Function to read data from DHT11 sensor
-def get_sensor_data():
-    humidity, temperature = Adafruit_DHT.read(sensor, pin)
-    if humidity is not None and temperature is not None:
-        logging.debug(f'Temperature: {temperature} C, Humidity: {humidity} %')
-        return {'temperature': temperature, 'humidity': humidity}
-    else:
-        logging.error('Failed to get reading from the sensor.')
-        return {'temperature': 'N/A', 'humidity': 'N/A'}
+    @app.route('/sensor_data', methods=['GET'])
+    def get_sensor_data():
+        temp, hum = read_dht11()
+        if temp is not None and hum is not None:
+            return jsonify({'temperature': temp, 'humidity': hum})
+        else:
+            return jsonify({'error': 'Failed to read sensor data'}), 500
 
-@app.route('/')
-def index():
-    data = get_sensor_data()
-    return render_template('index.html', data=data)
+    @app.route('/')
+    def index():
+        return send_from_directory('.', 'index.html')
 
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.png', mimetype='image/png')
+    if __name__ == '__main__':
+        app.run(host='0.0.0.0', port=5000)
 
-@app.route('/refresh')
-def refresh():
-    return redirect(url_for('index'))
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
     ```
 
 - 파일을 저장하고 나옵니다: `Esc`, `:wq`, `Enter`.
 
 ### 3. HTML 템플릿 생성
 
-- 같은 디렉토리에 `templates` 폴더를 생성합니다:
-    ```bash
-    mkdir templates
-    ```
-
-- `templates` 폴더로 이동합니다:
-    ```bash
-    cd templates
-    ```
-
-- `index.html`이라는 새 HTML 파일을 생성합니다:
+- 같은 디렉토리에 `index.html`이라는 새 HTML 파일을 생성합니다:
     ```bash
     vim index.html
     ```
 
 - `index.html` 파일에 다음 HTML 코드를 작성합니다:
     ```html
-    <!doctype html>
-    <html lang="en">
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Smart Cabbage Farm</title>
-        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-      </head>
-      <body>
-        <div class="container">
-          <h1>Smart Cabbage Farm</h1>
-          <img src="{{ url_for('static', filename='logo.png') }}" alt="Farm Logo" style="width:300px;height:auto;">
-          <h2>Temperature and Humidity Data</h2>
-          <p>Temperature: {{ data.temperature }} °C</p>
-          <p>Humidity: {{ data.humidity }} %</p>
-          <form action="{{ url_for('refresh') }}" method="get">
-            <button type="submit">Refresh</button>
-          </form>
-        </div>
-      </body>
+    <!-- index.html -->
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Temperature and Humidity</title>
+        <script>
+            async function fetchData() {
+                const response = await fetch('/sensor_data');
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById('temperature').textContent = data.temperature + ' °C';
+                    document.getElementById('humidity').textContent = data.humidity + ' %';
+                } else {
+                    document.getElementById('temperature').textContent = 'Error';
+                    document.getElementById('humidity').textContent = 'Error';
+                }
+            }
+
+            setInterval(fetchData, 2000);
+        </script>
+    </head>
+    <body onload="fetchData()">
+        <h1>Temperature and Humidity</h1>
+        <p>Temperature: <span id="temperature">Loading...</span></p>
+        <p>Humidity: <span id="humidity">Loading...</span></p>
+    </body>
     </html>
+
     ```
 
 - 파일을 저장하고 나옵니다: `Esc`, `:wq`, `Enter`.
