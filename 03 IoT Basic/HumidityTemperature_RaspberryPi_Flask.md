@@ -199,11 +199,6 @@
     python3 flask_app.py
     ```
 
-- 라즈베리 파이의 IP 주소를 찾습니다:
-    ```bash
-    hostname -I
-    ```
-- IP 주소를 기록해 둡니다.
 - 동일 네트워크의 브라우저에서 `http://<raspberry_pi_ip>:5000` 또는 `http://localhost:5000`을 사용하여 웹 서버에 접속합니다.
 
 ## 3단계: Ngrok을 사용하여 웹 서버에 접근 가능하게 만들기
