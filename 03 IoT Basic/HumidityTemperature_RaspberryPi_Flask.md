@@ -22,35 +22,41 @@
 ### 2. 한국어 언어 패키지 설치 및 설정
 
 - **라즈베리 파이에서 터미널을 엽니다.**
-- 다음 명령어를 실행하여 한국어 언어 패키지를 설치합니다:
+- 터미널에서 다음 명령어를 실행하여 시스템을 업데이트 및 업그레이드 합니다:
     ```bash
     sudo apt update
-    sudo apt install -y fonts-unfonts-core
-    sudo apt install -y ibus ibus-hangul
-    sudo apt install -y language-pack-ko
-    sudo apt install -y manpages-ko
+    sudo apt upgrade
     ```
 
-- 키보드 입력기를 설정합니다:
+- 다음 한글 언어 팩을 추가합니다:
     ```bash
-    ibus-setup
+    sudo apt install fonts-nanum ibus ibus-hangul
     ```
-
-    - "Input Method" 탭에서 "Add" 버튼을 클릭하고 "Korean - Hangul"을 선택합니다.
-
-- 시스템 언어를 한국어로 변경합니다:
+    설치 중 여유공간을 확인 후 설치 여부를 묻는다면 'Y'를 선택해서 설치를 진행합니다.  
+- 언어 및 지역 설정을 아래와 같은 스크립트를 통해 설정합니다:
     ```bash
     sudo raspi-config
     ```
-
     - "Localisation Options"를 선택하고 "Change Locale"을 선택합니다.
-    - "ko_KR.UTF-8 UTF-8"을 선택하고 "OK"를 클릭합니다.
-    - 기본 로케일을 "ko_KR.UTF-8"로 설정합니다.
+    - 스페이스 바를 활용해서 "ko_KR.UTF-8 UTF-8"을 선택하고 "OK"를 클릭합니다.
+    - "기본 로케일(Set Default Locale)"을 "ko_KR.UTF-8"로 설정합니다.
 
-- 시스템을 재부팅합니다:
+- 키보드 레이아웃을 변경합니다.  
+여전히 'raspi-config'에 위치하고 있습니다.  
+    - 'Localisation Options'로 이동합니다.  
+    - 'Keyboard Layout'을 선택합니다.
+    - 'generic 105-key PC' 또는 사용중인 특정 키보드 모델에 맞게 선택합니다.
+
+- 입력 수단(Input Method)에 한글을 추가합니다:
     ```bash
-    sudo reboot
-    ```
+    ibus-setup
+    ```  
+    위 스크립트를 실행하면 'IBus Preferences'라는 창이 열립니다.  
+    - 'Input Method'라는 탭을 클릭한 다음
+    - 'Add'를 클릭해서
+    - 'Korean'을 선택한 다음에
+    - 'Hangul'을 추가합니다.
+    - 'General' 탭에서 'Keyboar Shortcuts'에 'Next input method'의 기본 설정을 오른쪽의 '...'눌러서 원하는 방식으로 바꾸고 'Apply'를 선택합니다. 참고로 저는 'Shift'키를 활용해서 'space'키와 함께 '한/영' 변경 키로 설정했습니다. 
 
 ### 3. DHT11 센서 연결 및 구성
 
@@ -62,32 +68,6 @@
 
 ![라즈베리파이 핀(pin) 설명 이미지](images/gpio_image.png)
 
-- **Python 스크립트**:
-    ```python
-    import Adafruit_DHT
-    import time
-
-    # 센서 유형 및 GPIO 핀 설정
-    sensor = Adafruit_DHT.DHT11
-    pin = 4
-
-    while True:
-        humidity, temperature = Adafruit_DHT.read(sensor, pin)
-        if humidity is not None and temperature is not None:
-            print(f'Temperature: {temperature}C  Humidity: {humidity}%')
-        else:
-            print('Failed to get reading. Try again!')
-        time.sleep(10)
-    ```
-
-### 4. 라즈베리 파이의 IP 주소 찾기
-
-- 라즈베리 파이에서 터미널을 엽니다.
-- 다음 명령어를 실행하여 IP 주소를 찾습니다:
-    ```bash
-    hostname -I
-    ```
-- 표시된 IP 주소를 기록해 둡니다. 이 주소는 동일 네트워크의 다른 장치에서 Flask 웹 서버에 접속하는 데 사용됩니다.
 
 ## 2단계: Flask를 사용한 웹 서버 설정
 
@@ -117,12 +97,8 @@
 **flask_app.py 생성 단계별 가이드**
 
 - 라즈베리 파이에서 터미널을 엽니다.
-- 홈 디렉토리나 프로젝트를 생성할 디렉토리로 이동합니다:
-    ```bash
-    cd ~/flask_app
-    ```
-
-- `flask_app.py`라는 새 Python 파일을 생성합니다:
+- 프로젝트를 생성할 디렉토리에 위치했는 지 확인합니다. 예시에서는 'flask_app' 디렉토리에 위칙하고 있습니다.
+- 해당 디렉토리에서 `flask_app.py`라는 새 Python 파일을 생성합니다:
     ```bash
     vim flask_app.py
     ```
