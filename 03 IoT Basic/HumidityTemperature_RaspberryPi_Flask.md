@@ -201,7 +201,88 @@
 
 - 동일 네트워크의 브라우저에서 `http://<raspberry_pi_ip>:5000` 또는 `http://localhost:5000`을 사용하여 웹 서버에 접속합니다.
 
-## 3단계: Ngrok을 사용하여 웹 서버에 접근 가능하게 만들기
+## 3단계: 웹 애플리케이션 업데이트 하기
+온/습도를 확인하는 웹 애플리케이션을 만드셨습니다.  
+이제 버튼을 추가하고 버튼을 누르면 온/습도를 확인해주는 애플리케이션으로 변경 및 업데이트를 하려고 합니다.  
+
+### 1. flask_app.py를 업데이트 합니다.
+```python
+# flask_app.py
+from flask import Flask, jsonify, send_from_directory
+import board
+import adafruit_dht
+
+app = Flask(__name__)
+
+# Initialize the DHT device, with data pin connected to:
+dhtDevice = adafruit_dht.DHT11(board.D4)
+
+def read_dht11():
+    try:
+        temperature_c = dhtDevice.temperature
+        humidity = dhtDevice.humidity
+        return temperature_c, humidity
+    except RuntimeError as error:
+        print(error.args[0])
+        return None, None
+
+@app.route('/sensor_data', methods=['GET'])
+def get_sensor_data():
+    temp, hum = read_dht11()
+    if temp is not None and hum is not None:
+        return jsonify({'temperature': temp, 'humidity': hum})
+    else:
+        return jsonify({'error': 'Failed to read sensor data'}), 500
+
+@app.route('/')
+def index():
+    return send_from_directory('.', 'index.html')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+```
+
+### 2. index.html을 수정합니다.
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperature and Humidity</title>
+    <script>
+        async function fetchData() {
+            const response = await fetch('/sensor_data');
+            const data = await response.json();
+            if (response.ok) {
+                document.getElementById('temperature').textContent = data.temperature + ' °C';
+                document.getElementById('humidity').textContent = data.humidity + ' %';
+            } else {
+                document.getElementById('temperature').textContent = 'Error';
+                document.getElementById('humidity').textContent = 'Error';
+            }
+        }
+
+        function refreshData() {
+            fetchData();
+        }
+    </script>
+</head>
+<body>
+    <h1>Temperature and Humidity</h1>
+    <p>Temperature: <span id="temperature">Loading...</span></p>
+    <p>Humidity: <span id="humidity">Loading...</span></p>
+    <button onclick="refreshData()">Refresh</button>
+</body>
+</html>
+```
+
+### 3. 업데이트 한 Flask 앱 실행하기
+```bash
+python3 flask_app.py
+```
+
+다시 브라우즈에서 'localhost:5000'을 실행하시면 'refresh' 버튼이 생겼고, 이 버튼을 누르면 현재 온/습도를 보여줍니다.
+
+## 4단계: Ngrok을 사용하여 웹 서버에 접근 가능하게 만들기
 
 ### 1. Ngrok 가입 및 인증 토큰 받기
 
