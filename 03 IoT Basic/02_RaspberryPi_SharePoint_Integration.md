@@ -21,5 +21,57 @@ SharePoint List를 데이터베이스로 활용하는 이유는 여러 장점이
 
 다만, 실무에서 활욯할 때에는 SharePoint의 속도, 보안 등의 취약점도 고려할 필요가 있습니다.
 
-## 3. SharePoint List 활용
-### 1. SharePoint List 만들기
+## IoT and SharePoint List Integration with Raspberry Pi and DHT11 Sensor
+
+This guide will walk you through setting up an IoT project that uses a Raspberry Pi to read data from a DHT11 sensor (temperature and humidity) and saves the data to a SharePoint list. We will use Microsoft Graph API for data integration and Power Automate for notifications.
+
+### Prerequisites
+
+- Raspberry Pi with Raspbian OS installed
+- DHT11 Sensor
+- SharePoint Online account
+- Azure Active Directory (Azure AD) account
+- Microsoft 365 account
+- Python installed on Raspberry Pi
+- Libraries: `adafruit-circuitpython-dht`, `requests`, `schedule`, `msal`
+
+### Step 1: Set Up the Hardware
+
+1. **Connect the DHT11 Sensor to Raspberry Pi**:
+   - Connect the VCC pin of DHT11 to 3.3V pin on the Raspberry Pi.
+   - Connect the GND pin of DHT11 to GND on the Raspberry Pi.
+   - Connect the Data pin of DHT11 to GPIO pin 4 on the Raspberry Pi.
+
+### Step 2: Install Required Libraries
+
+```bash
+pip install adafruit-circuitpython-dht
+pip install requests
+pip install schedule
+pip install msal
+```
+### Step 3: Entra Admin Center에서 앱 등록
+1. [Entra Admin Center](https://entra.microsoft.com)으로 이동해서 왼쪽 메뉴에서 앱 등록(Applications>App registrations)
+3. 새 등록(New registration)을 클릭.
+4. 필수 사항 채워넣기:
+- Name: 원하는 앱 이름 입력(예를 들어 'IoT SharePoint Integration')
+- Supported account types: Accounts in this organizational directory only (Single tenant)
+- 
+5. 등록(Register) 클릭.
+6. Certificates & secrets > New client secret 한 다음 create a new secret. 해당 Value를 꼭 복사해서 저장해두어야 합니다. 생성할 때 보여주고 다음에는 안 보여줍니다.
+7. API permissions > Add a permission > Microsoft Graph > Application permissions 순으로 처리합니다.
+8. Add the permissions을 처리할 때 :
+- Sites.ReadWrite.All
+9. 마무리 한 다음 생성된 permission에 대해서 Grant admin consent for the permissions도 마무리 해주세요.
+
+### Step 4: Configure the Application
+config.py 라는 파일을 생성해서 Entra에 등록된 앱에 관한 정보를 각각 입력한 다음 해당 파일을 저장합니다:
+```bash
+# config.py
+
+CLIENT_ID = "your-client-id"  # 등록한 앱의 애플리케이션(클라이언트) ID
+CLIENT_SECRET = "your-client-secret-value"  # 앱을 등록할 때 추가한 Secret Value(생성할 때만 보여주므로 저장 필수)
+TENANT_ID = "your-tenant-id"  # 등록한 앱의 Tenant ID 정보 (Overview에서 확인 가능)
+AUTHORITY = f'https://login.microsoftonline.com/{TENANT_ID}'
+SCOPE = ["https://graph.microsoft.com/.default"]
+```
