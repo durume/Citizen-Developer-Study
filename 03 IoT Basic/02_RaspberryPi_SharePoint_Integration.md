@@ -21,28 +21,42 @@ SharePoint List를 데이터베이스로 활용하는 이유는 여러 장점이
 
 다만, 실무에서 활욯할 때에는 SharePoint의 속도, 보안 등의 취약점도 고려할 필요가 있습니다.
 
-## IoT and SharePoint List Integration with Raspberry Pi and DHT11 Sensor
+## 라즈베리 파이를 통한 사물인터넷(IoT)과 쉐어포인트 목록(SharePoint List) 통합
 
-This guide will walk you through setting up an IoT project that uses a Raspberry Pi to read data from a DHT11 sensor (temperature and humidity) and saves the data to a SharePoint list. We will use Microsoft Graph API for data integration and Power Automate for notifications.
+이 실습을 통해서 라즈베리 파이를 사용하여 DHT11 센서에서 읽어들인 데이터를 쉐어포인트 목록에 저장하는 것을 해볼 수 있습니다. 데이터 통합에는 마이크로소프트(Microsoft) 그래프(Graph)를 활용하도록 하겠습니다. 
 
-### Prerequisites
+### 사전 준비사항
 
-- Raspberry Pi with Raspbian OS installed
-- DHT11 Sensor
-- SharePoint Online account
-- Azure Active Directory (Azure AD) account
-- Microsoft 365 account
-- Python installed on Raspberry Pi
-- Libraries: `adafruit-circuitpython-dht`, `requests`, `schedule`, `msal`
+- 라즈베리 운영체제가 설치된 라즈베리 파이
+- DHT11 센서(온/습도)
+- SharePoint 온라인 계정
+- 마이크로소프트 엔트라(Entra) 계정
+- Microsoft 365 계정
+- 파이선(Python) 설치
+- 설치할 라이브러리들 또는 패키지: `adafruit-circuitpython-dht`, `requests`, `schedule`, `msal`
 
-### Step 1: Set Up the Hardware
+### Step 1: 하드웨어 설정
 
-1. **Connect the DHT11 Sensor to Raspberry Pi**:
-   - Connect the VCC pin of DHT11 to 3.3V pin on the Raspberry Pi.
-   - Connect the GND pin of DHT11 to GND on the Raspberry Pi.
-   - Connect the Data pin of DHT11 to GPIO pin 4 on the Raspberry Pi.
+1. **DHT11 센서 라즈베리 파이와 연결**:
+   - DHT11의 VCC pin을 라즈베리 파이의 3.3V (또는 5V) pin 에 연결.
+   - DHT11의 GND pin을 라즈베리 파이의 GND pin에 연결.
+   - DHT11의 Data pin을 라즈베리 파이의 GPIO pin 4에 연결.
 
-### Step 2: Install Required Libraries
+2. **작업 폴더 생성 및 가상환경 설정**
+프로젝트용 작업 폴더(디렉토리)를 만든 후, 해당 폴더로 이동해서 가상환경을 설치하는 명령어입니다.   
+```bash
+mkdir IoT_Project
+cd IoT_Project
+python3 -m venv iot
+source iot/bin/activate
+```
+위와 같이 가상환경을 설치하는 까닭은 기존 시스템의 라이브러리 또는 패키지 등과 충돌을 막고 안정적인 개발을 하기 위해서입니다.  
+
+위 예저는 'IoT_Project'라는 폴더(디렉토리)를 만든 후에(mkdir), 새로 생긴 디렉토리로 이동해서(cd), 파이선 스크립트로 'iot'라는 가상환경을 만든 후 해당 가상환경을 실행하는 내용입니다.  
+
+참고로 가상환경을 해제하고 싶은 경우 ```deactivate```라는 명령어를 터미널에서 실행하면 됩니다.
+
+### Step 2: 필수 라이브러리(또는 패키지) 설치
 
 ```bash
 pip install adafruit-circuitpython-dht
@@ -50,21 +64,31 @@ pip install requests
 pip install schedule
 pip install msal
 ```
+
 ### Step 3: Entra Admin Center에서 앱 등록
 1. [Entra Admin Center](https://entra.microsoft.com)으로 이동해서 왼쪽 메뉴에서 앱 등록(Applications>App registrations)
 3. 새 등록(New registration)을 클릭.
+![앱 등록](images/entra_admin_center_app_regi_01.png)
 4. 필수 사항 채워넣기:
 - Name: 원하는 앱 이름 입력(예를 들어 'IoT SharePoint Integration')
 - Supported account types: Accounts in this organizational directory only (Single tenant)
-- 
-5. 등록(Register) 클릭.
-6. Certificates & secrets > New client secret 한 다음 create a new secret. 해당 Value를 꼭 복사해서 저장해두어야 합니다. 생성할 때 보여주고 다음에는 안 보여줍니다.
-7. API permissions > Add a permission > Microsoft Graph > Application permissions 순으로 처리합니다.
+![필수 사항 채워넣기](images/entra_admin_center_app_regi_02.png)
+5. 등록(Register) 후 등록된 앱 중요 정보 확인.
+![앱 등록 후 중요정보 확인](images/entra_admin_center_app_regi_03.png)
+6. Certificates & secrets > New client secret 한 다음 create a new secret. 해당 Value를 꼭 복사해서 저장해두어야 합니다.  
+![Certificates와 Secret 설정](images/entra_admin_center_app_certificates_secrets_01.png)  
+**```주의```생성할 때 보여주고 다음에는 안 보여줍니다. 잘 저장해둬야 합니다.**  
+![Secret 확인 및 저장](images/entra_admin_center_app_certificates_secrets_02.png)
+
+7. API permissions > Add a permission > Microsoft Graph > Application permissions 순으로 처리합니다.  
+![API permissions 설정](images/entra_admin_center_app_api_permissions_01.png)
 8. Add the permissions을 처리할 때 :
 - Sites.ReadWrite.All
+![API permissions 권한 설정](images/entra_admin_center_app_api_permissions_02.png)
 9. 마무리 한 다음 생성된 permission에 대해서 Grant admin consent for the permissions도 마무리 해주세요.
+![API permissions Admin Consent 설정](images/entra_admin_center_app_api_permissions_03.gif)]
 
-### Step 4: Configure the Application
+### Step 4: 애플리케이션 구성(Configure the Application)
 config.py 라는 파일을 생성해서 Entra에 등록된 앱에 관한 정보를 각각 입력한 다음 해당 파일을 저장합니다:
 ```bash
 # config.py
@@ -75,3 +99,110 @@ TENANT_ID = "your-tenant-id"  # 등록한 앱의 Tenant ID 정보 (Overview에�
 AUTHORITY = f'https://login.microsoftonline.com/{TENANT_ID}'
 SCOPE = ["https://graph.microsoft.com/.default"]
 ```
+
+### Step 5: 파이선 스크립트 작성
+
+DHT11 센서에서 취득한 온/습도 정보를 MSAL 이라는 방식의 인증을 통해서 마이크로소프트(Microsoft)가 제공하는 그래프(Graph) 서비스를 통해 쉐어포인트(SharePoint) 목록(List)에 데이터를 저장하는 파이선 스크립트를 만들어 보겠습니다. 참고로 저는 'dht11_to_sharepoint_msal.py'라는 이름으로 파일을 만들어서 저장하기로 합니다.  
+
+먼저 [MS Graph explorer (https://developer.microsoft.com/en-us/graph/graph-explorer)](https://developer.microsoft.com/en-us/graph/graph-explorer) 라는 곳으로 이동합니다.
+
+해당 파이썬 스크립트에서 사용할 SharePoint List의 ID와 해당 목록(List)가 저장된 SharePoint Site의 ID를 찾아오겠습니다.  
+
+- 쉐어포인트 사이트(SharePoint Site) ID 찾기  
+![SharePoint Site ID 찾기](images/ms_graph_get_site_id.png)
+
+- 쉐어포인트 목록(SharePoint List) ID 찾기  
+![SharePoint List ID 찾기](images/ms_graph_get_sharepoint_list_id.png)
+
+
+위에서 찾은 각 ID를 아래 파이선 스크립트에 복사해서 붙여넣도록 하겠습니다.
+
+```python
+import time
+import board
+import adafruit_dht
+import requests
+from datetime import datetime
+import schedule
+import msal
+from config import CLIENT_ID, CLIENT_SECRET, AUTHORITY, SCOPE
+
+# DHT11 sensor initialization
+dhtDevice = adafruit_dht.DHT11(board.D4)
+
+# SharePoint settings
+SHAREPOINT_SITE_ID = "your-sharepoint-site-id" # MS Graph explorer 에서 찾은 Site id 복사해서 쌍따옴표 안에 붙여넣기
+SHAREPOINT_LIST_ID = "your-sharepoint-list-id" # MS Graph explorer에서 찾은 List id 역시 복사해서 붙여넣기
+
+def get_access_token():
+    app = msal.ConfidentialClientApplication(
+        CLIENT_ID,
+        authority=AUTHORITY,
+        client_credential=CLIENT_SECRET,
+    )
+
+    # First, look for a token in the cache
+    result = app.acquire_token_silent(SCOPE, account=None)
+
+    if not result:
+        print("No suitable token exists in cache. Getting a new one from AAD.")
+        result = app.acquire_token_for_client(scopes=SCOPE)
+
+    if "access_token" in result:
+        return result["access_token"]
+    else:
+        raise Exception("Could not acquire token: " + result.get("error") + ", " + result.get("error_description"))
+
+def read_dht11():
+    try:
+        temperature_c = dhtDevice.temperature
+        humidity = dhtDevice.humidity
+        print(f"Read from sensor - Temp: {temperature_c} C, Humidity: {humidity}%")
+        return temperature_c, humidity
+    except RuntimeError as error:
+        print(f"Sensor reading error: {error.args[0]}")
+        return None, None
+
+def save_to_sharepoint(temp, hum):
+    access_token = get_access_token()
+    headers = {
+        "Authorization": "Bearer " + access_token,
+        "Content-Type": "application/json"
+    }
+    data = {
+        "fields": {
+            "Title": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "Temperature": temp,
+            "Humidity": hum
+        }
+    }
+    response = requests.post(
+        f"https://graph.microsoft.com/v1.0/sites/{SHAREPOINT_SITE_ID}/lists/{SHAREPOINT_LIST_ID}/items",
+        headers=headers,
+        json=data
+    )
+    if response.status_code == 201:
+        print("Data saved to SharePoint successfully.")
+    else:
+        print(f"Failed to save data to SharePoint: {response.text}")
+
+def job():
+    print("Starting job...")
+    temp, hum = read_dht11()
+    if temp is not None and hum is not None:
+        save_to_sharepoint(temp, hum)
+    print("Job finished.")
+
+# Schedule job every 10 minutes
+schedule.every(10).minutes.do(job)
+
+print("Script started. Waiting for the first job to run...")
+# Run the job immediately for testing
+job()
+
+while True:
+    schedule.run_pending()
+    print("Checking schedule at:", datetime.now())
+    time.sleep(60)  # Sleep for 1 minute to reduce output frequency
+```
+
