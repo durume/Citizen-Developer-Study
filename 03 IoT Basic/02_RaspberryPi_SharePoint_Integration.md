@@ -193,8 +193,8 @@ def job():
         save_to_sharepoint(temp, hum)
     print("Job finished.")
 
-# Schedule job every 10 minutes
-schedule.every(10).minutes.do(job)
+# 매 30분마다 확인 후 저장하는 스케줄
+schedule.every(30).minutes.do(job) 
 
 print("Script started. Waiting for the first job to run...")
 # Run the job immediately for testing
@@ -203,6 +203,13 @@ job()
 while True:
     schedule.run_pending()
     print("Checking schedule at:", datetime.now())
-    time.sleep(60)  # Sleep for 1 minute to reduce output frequency
+    time.sleep(900)  # 15분간 스케줄 상황 대기
+```
+### Step 6: 파일 저장 및 실행
+위 파이선 스크립트를 저장한 다음 터미널에서 실행을 진행합니다.
+
+```bash
+python3 dht11_to_sharepoint_msal.py
 ```
 
+위와 같이 실행하면 문제없이 DHT11 센서를 통해서 Raspberry Pi가 해당 SharePoint 사이트의 목록에 값을 처음 저장한 다음 30분마다 저장하게 됩니다.
