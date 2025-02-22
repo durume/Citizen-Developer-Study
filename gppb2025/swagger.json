@@ -36,7 +36,8 @@ paths:
                   type: string
                   description: fruit
                 id:
-                  type: string
+                  type: integer
+                  format: int32
                   description: id
                 quantity:
                   type: integer
@@ -76,29 +77,6 @@ paths:
                 type: integer
                 format: int32
                 description: quantity
-  /sales:
-    get:
-      responses:
-        default:
-          description: default
-          schema:
-            type: object
-            properties:
-              date:
-                type: string
-                description: date
-              total_sales:
-                type: integer
-                format: int32
-                description: total_sales
-      summary: SalesAmountByDate
-      operationId: GetSalesAmountByDate
-      description: Sales Amount by Date
-      parameters:
-        - name: date
-          in: query
-          required: false
-          type: string
 definitions: {}
 parameters: {}
 responses: {}
