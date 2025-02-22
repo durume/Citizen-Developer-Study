@@ -1,0 +1,107 @@
+swagger: '2.0'
+info:
+  title: FruitOrder
+  description: ''
+  version: '1.0'
+host: c3r6cfbq-5000.asse.devtunnels.ms
+basePath: /
+schemes:
+  - https
+consumes: []
+produces:
+  - application/json
+paths:
+  /orders:
+    get:
+      summary: OrderList
+      description: GetAllOrders
+      operationId: GetOrderList
+      parameters: []
+      responses:
+        '200':
+          description: Return a list of orders
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                  format: int32
+                  description: amount
+                date:
+                  type: string
+                  description: date
+                fruit:
+                  type: string
+                  description: fruit
+                id:
+                  type: string
+                  description: id
+                quantity:
+                  type: integer
+                  format: int32
+                  description: quantity
+  /orders/{order_id}:
+    get:
+      summary: Order By ID
+      description: Order by ID
+      operationId: GetOrderById
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Return a single order
+          schema:
+            type: object
+            properties:
+              amount:
+                type: integer
+                format: int32
+                description: amount
+              date:
+                type: string
+                description: date
+              fruit:
+                type: string
+                description: fruit
+              id:
+                type: integer
+                format: int32
+                description: id
+              quantity:
+                type: integer
+                format: int32
+                description: quantity
+  /sales:
+    get:
+      responses:
+        default:
+          description: default
+          schema:
+            type: object
+            properties:
+              date:
+                type: string
+                description: date
+              total_sales:
+                type: integer
+                format: int32
+                description: total_sales
+      summary: SalesAmountByDate
+      operationId: GetSalesAmountByDate
+      description: Sales Amount by Date
+      parameters:
+        - name: date
+          in: query
+          required: false
+          type: string
+definitions: {}
+parameters: {}
+responses: {}
+securityDefinitions: {}
+security: []
+tags: []
