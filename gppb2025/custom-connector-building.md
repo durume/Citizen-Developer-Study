@@ -20,6 +20,7 @@
              # ...
          ])
      ```
+     - [데모용 샘플 웹앱 만들기](https://github.com/durume/python-sample-app) 확인
 2. **Dev Tunnels 주소 확인**  
    - VS Code에서 Dev Tunnels(포트 포워딩)를 설정한 뒤, 다음과 같은 임시 URL을 발급받았다고 가정합니다:  
      ```
