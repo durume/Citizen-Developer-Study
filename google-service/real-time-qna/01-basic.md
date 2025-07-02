@@ -27,16 +27,23 @@
 ### 1단계: 제어판 스프레드시트 만들기
 
 1.  [구글 시트](https://sheets.google.com)로 이동하여 새 스프레드시트를 만듭니다.
-2.  이 시트의 이름을 '이벤트 Q\&A 제어판'과 같이 알아보기 쉽게 지정하세요. 이 시트가 여러분의 메인 대시보드가 됩니다.
+2.  이 시트의 이름을 '이벤트 질문 제어판'과 같이 알아보기 쉽게 지정하세요. 이 시트가 여러분의 메인 대시보드가 됩니다
+![image](https://github.com/user-attachments/assets/779fab13-bcdf-4360-8a3b-87fdd930ef88)  
+
 
 ### 2단계: Apps Script 편집기 열기
 
-1.  새로 만든 스프레드시트의 상단 메뉴에서 **확장 프로그램 \> Apps Script**를 클릭합니다.
+1.  새로 만든 스프레드시트의 상단 메뉴에서 **확장 프로그램 \> Apps Script**를 클릭합니다.  
+![image](https://github.com/user-attachments/assets/63acb8d1-1021-4e16-ae1e-d8d2e7e3a366)  
 2.  새 탭에서 Apps Script 편집기가 열립니다.
+![image](https://github.com/user-attachments/assets/9272f9eb-801c-4dd3-a461-a11397c35782)
+3.  Apps Script 편집기의 프로젝트 이름을 바꿉니다.
+![image](https://github.com/user-attachments/assets/cac503d4-75db-4eeb-89d8-41735e435857)
+
 
 ### 3단계: 서버 측 코드 추가하기 (`Code.gs`)
 
-1.  편집기에 기본으로 생성되어 있는 `Code.gs` 파일의 **내용을 모두 삭제**합니다.
+1.편집기에 기본으로 생성되어 있는 `Code.gs` 파일의 **내용을 모두 삭제**합니다.
 2.  아래의 전체 코드 블록을 복사하여 비어있는 `Code.gs` 파일에 **붙여넣기** 하세요.
 
 <!-- end list -->
