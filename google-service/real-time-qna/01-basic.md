@@ -319,10 +319,8 @@ function getMessages(sheetId) {
 ![image](https://github.com/user-attachments/assets/3926adce-0743-46ad-8631-903ae1208e52)
 
 6.  질문이 제출되면 해당 페이지에 실시간으로 나타납니다.  
+![image](https://github.com/user-attachments/assets/9b63f73e-7e7a-400a-be3e-cf26aab34ac1)  
 ![image](https://github.com/user-attachments/assets/f07a5e79-ee3b-4468-9b34-7f20b4880dc7)
-
-![image](https://github.com/user-attachments/assets/9b63f73e-7e7a-400a-be3e-cf26aab34ac1)
-
 
 -----
 
